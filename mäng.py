@@ -1,5 +1,6 @@
 import time
 import pygame
+import os
 pygame.init()
 
 pygame.display.set_caption("projekt")
@@ -19,7 +20,40 @@ def text_objects(text, font):
     textRect = textSurface.get_rect()
     return textSurface, textRect
 
-# nupu funktsioon
+#neid valikuid saame kasutada küsimuste valimisel
+import random
+def valik():
+    valik1=random.randint(1,3)
+    valik2=random.randint(1,3)
+    while valik1==valik2:
+        valik2=random.randint(1,3)
+    valik3=random.randint(1,3)
+    while valik3==valik2 or valik3==valik1:
+        valik3=random.randint(1,3)
+    return valik1, valik2, valik3
+
+def gameloop():
+    while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        screen.fill(white)
+        font = pygame.font.Font(None,100)
+        textSurface, textRect = text_objects("Vali oma tee", font)
+        textRect.center = (250,100)
+        screen.blit(textSurface, textRect)
+
+        valik()
+        button("1",185,310,120,15,"valik1")
+        button("2", 185,330,120,15,"valik2")
+        button("3", 185,350,120,15,"valik3")
+        pygame.display.update()
+        clock.tick(15)
+
+# nupu funktsioon, peab täiendama, et ei kontrolliks vaid esimese vajutuse commande, vaid hoopis tagastaks commandi et funktsiooni saaks kasutada läbi terve programmi
 def button(word,x,y,width,height,command):
     mouse =  pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -30,7 +64,7 @@ def button(word,x,y,width,height,command):
        
         if click[0] == 1:
             if command == "sisene":
-                game_loop()
+                gameloop()
             if command == "lõpeta":
                 pygame.quit()
                 quit()
@@ -64,7 +98,4 @@ def intro():
 
         pygame.display.update()
         clock.tick(15)
-def game_loop():
-    
-
 intro()
