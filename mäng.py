@@ -46,10 +46,10 @@ def gameloop():
         textRect.center = (250,100)
         screen.blit(textSurface, textRect)
 
-        valik()
-        button("1",185,310,120,15,"valik1")
-        button("2", 185,330,120,15,"valik2")
-        button("3", 185,350,120,15,"valik3")
+        valikud=valik()
+        button("1",185,300,120,20,valikud[0])
+        button("2", 185,330,120,20,valikud[1])
+        button("3", 185,360,120,20,valikud[2])
         pygame.display.update()
         clock.tick(15)
 
