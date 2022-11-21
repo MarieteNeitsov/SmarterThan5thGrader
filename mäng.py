@@ -19,7 +19,8 @@ def text_objects(text, font):
     textRect = textSurface.get_rect()
     return textSurface, textRect
 
-# nupu funktsioon
+
+# nupufunktsioon
 def button(word,x,y,width,height,command):
     mouse =  pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -27,20 +28,33 @@ def button(word,x,y,width,height,command):
     #X-koordinaat + laius, Y-koordinaat + kõrgus
     if x+width > mouse[0] > x and y+height > mouse[1] > y:
         pygame.draw.rect(screen, darkblue,(x,y,width,height))
-       
+        text = pygame.font.Font(None,30)
         if click[0] == 1:
             if command == "sisene":
                 game_loop()
             if command == "lõpeta":
                 pygame.quit()
                 quit()
+            if command == "õige":
+                textSurface, textRect = text_objects("õige vastus", text)
+                textRect.center = (500/2,500/2)
+                screen.blit(textSurface, textRect)
+                clock.tick(15)
+            
+            if command =="vale":
+                textSurface, textRect = text_objects("vale vastus", text)
+                textRect.center = (500/2,500/2)
+                screen.blit(textSurface, textRect)
+                clock.tick(15)
+                
     else:
         pygame.draw.rect(screen,lightblue,(x,y,width,height))
-
     text = pygame.font.Font(None,30)
     textSurface, textRect = text_objects(word, text)
-    textRect.center = ( x+width/2, y+height/2) 
+    textRect.center = (x+width/2, y+height/2) 
     screen.blit(textSurface, textRect)
+
+    return command
 
 def intro():
     intro = True
@@ -65,6 +79,19 @@ def intro():
         pygame.display.update()
         clock.tick(15)
 def game_loop():
+    game_loop = True
+    while game_loop:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
     
-
+        screen.fill(white)
+        
+        button("valik1", 185,310,120,50,"õige")
+        button("valik2", 185,390,120,50,"vale")
+        pygame.display.update()
+        clock.tick(40)
 intro()
+game_loop()
