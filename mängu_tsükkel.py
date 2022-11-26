@@ -52,10 +52,6 @@ def gameloop():
         clock.tick(60)
 
 
-
-        pygame.display.update()
-        clock.tick(15)
-
 def küsimus(indeks):
     valikud=valik(len(järjend)-1)
     tekst=järjend[valikud[indeks]]

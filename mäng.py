@@ -11,7 +11,7 @@ from mängu_tsükkel import gameloop
 pygame.font.init()
 
 
-pygame.display.set_caption("projekt")
+pygame.display.set_caption("Are you smarter than a 5th grader?")
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("comicsansms",50)
