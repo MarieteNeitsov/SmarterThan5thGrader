@@ -1,5 +1,6 @@
 from tekstipind import*
 import pygame
+import sys
 
 screen = pygame.display.set_mode([500, 500])
 
@@ -9,8 +10,8 @@ def intro():
         for event in pygame.event.get():
             print(event)
         screen.fill(white)
-        font = pygame.font.Font(None,100)
-        textSurface, textRect = text_objects("Pealkiri", font)
+        font=pygame.font.SysFont(None,20)
+        textSurf,textRect=text_objects("Are you smarter/n than a 5th grader",font)
         textRect.center = (500/2,500/2)
         screen.blit(textSurface, textRect)
     

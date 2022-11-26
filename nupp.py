@@ -1,6 +1,8 @@
 import pygame
+import sys
 from tekstipind import*
-
+pygame.font.init()
+ 
 screen = pygame.display.set_mode([500, 500])
 
 def nupufunktsioon(sõnum,Xtelg,Ytelg,laius,kõrgus,ic,ac,action=None):
