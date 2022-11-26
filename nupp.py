@@ -1,7 +1,6 @@
 import pygame
 import sys
 from tekstipind import*
-pygame.font.init()
  
 screen = pygame.display.set_mode([500, 500])
 
@@ -19,6 +18,7 @@ def nupufunktsioon(sõnum,Xtelg,Ytelg,laius,kõrgus,ic,ac,action=None):
 
         pygame.draw.rect(screen, ic,(Xtelg,Ytelg,laius,kõrgus))
     
+    pygame.init()
     väiketekst=pygame.font.SysFont("comicsansms",20)
     textSurf,textRect=text_objects(sõnum,väiketekst)
     textRect.center=((Xtelg+laius/2),(Ytelg+kõrgus/2))
