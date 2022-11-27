@@ -68,7 +68,7 @@ def küsimus1():
         screen.fill('white')
         font = pygame.font.SysFont("comicsansms",50)
         display_text(screen,tekst,(20,20),font,black)
-
+#järjendist peab siis vastava elemendi ära kustutama
         pygame.display.update()
         clock.tick(60)
 
@@ -104,3 +104,4 @@ def küsimus3():
 
         pygame.display.update()
         clock.tick(60)
+#vaja lisada vastuse kast, kontroll
