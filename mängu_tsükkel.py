@@ -7,6 +7,7 @@ from tekstipind import *
 from valikud import *
 from nupp import nupufunktsioon
 from info_failist import*
+import random
 pygame.font.init()
 
 screen = pygame.display.set_mode([500, 500])
@@ -43,17 +44,19 @@ def gameloop():
         textSurface, textRect = text_objects("Vali oma tee", font)
         textRect.center = (250,100)
         
-        nupufunktsioon("1",20,300,460,30,darkblue,lightblue,küsimus(0))
-        nupufunktsioon("2",20,350,460,30,darkblue,lightblue,pygame.quit)
-        nupufunktsioon("3",20,400,460,30,darkblue,lightblue,gameloop)
+        nupufunktsioon("1",20,100,460,30,darkblue,lightblue,küsimus1)
+        nupufunktsioon("2",20,150,460,30,darkblue,lightblue,küsimus2)
+        nupufunktsioon("3",20,200,460,30,darkblue,lightblue,küsimus3)
 
         screen.blit(textSurface, textRect)
         pygame.display.update()
         clock.tick(60)
 
 
-def küsimus(indeks):
-    valikud=valik(len(järjend)-1)
+valikud=valik(len(järjend)-1)
+
+def küsimus1():
+    indeks=0
     tekst=järjend[valikud[indeks]]
 
     while True:
@@ -62,7 +65,40 @@ def küsimus(indeks):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        screen.fill(white)
+        screen.fill('white')
+        font = pygame.font.SysFont("comicsansms",50)
+        display_text(screen,tekst,(20,20),font,black)
+
+        pygame.display.update()
+        clock.tick(60)
+
+def küsimus2():
+    indeks=1
+    tekst=järjend[valikud[indeks]]
+
+    while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        screen.fill('white')
+        font = pygame.font.SysFont("comicsansms",50)
+        display_text(screen,tekst,(20,20),font,black)
+
+        pygame.display.update()
+        clock.tick(60)
+def küsimus3():
+    indeks=2
+    tekst=järjend[valikud[indeks]]
+
+    while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        screen.fill('white')
         font = pygame.font.SysFont("comicsansms",50)
         display_text(screen,tekst,(20,20),font,black)
 
