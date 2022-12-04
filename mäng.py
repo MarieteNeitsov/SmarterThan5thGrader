@@ -14,10 +14,12 @@ pygame.font.init()
 pygame.display.set_caption("Are you smarter than a 5th grader?")
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
-font = pygame.font.SysFont("comicsansms",55)
+font = pygame.font.SysFont("comicsansms",35)
+background= pygame.image.load('background.jpg')
 
 def intro():
     intro = True
+
     while intro:
         for event in pygame.event.get():
             print(event)
@@ -25,11 +27,12 @@ def intro():
                 pygame.quit()
                 quit()
         screen.fill(white)
-        display_text(screen,"Are you smarter than a 5th grader?",(25,25),font,black)
+        screen.blit(background,(0,0))
+        display_text(screen,"Are you smarter than a 5th grader?",(60,100),font,white)
     
        
-        nupufunktsioon("Start",50,300,400,80,green, darkgreen,gameloop)
-        nupufunktsioon("End Game", 150,400,200,50,red, darkred,pygame.quit)
+        nupufunktsioon("Start!",100,300,300,70,green,darkgreen,gameloop)
+        nupufunktsioon("End Game", 150,400,200,50,red,darkred,pygame.quit)
     
 
         pygame.display.update()

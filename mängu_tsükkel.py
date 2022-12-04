@@ -12,6 +12,7 @@ pygame.font.init()
 
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
+background= pygame.image.load('background.jpg')
 
 def display_text(surface,text,pos,font,color):
     collection=[word.split(' ')for word in text.splitlines()]
@@ -29,9 +30,15 @@ def display_text(surface,text,pos,font,color):
         x=pos[0]
         y+=word_height
 
-
+def display_time(time_seconds):
+  # time string with tents of seconds
+  time_str =  str(int(time_seconds*10) / 10) 
+  font = pygame.font.SysFont("comicsansms",50)
+  label = font.render(f"Time : {time_str}", 1, red)
+  screen.blit(label, (20, 20))
         
 def gameloop():
+    time_seconds = 0
     while True:
         for event in pygame.event.get():
             print(event)
@@ -40,7 +47,8 @@ def gameloop():
                 quit()
 
         screen.fill(white)
-        font = pygame.font.SysFont("comicsansms",50)
+        screen.blit(background,(0,0))
+        font = pygame.font.SysFont("comicsansms",30)
         textSurface, textRect = text_objects("Vali oma tee", font)
         textRect.center = (250,100)
         
@@ -49,6 +57,13 @@ def gameloop():
         nupufunktsioon("3",20,200,460,30,darkblue,lightblue,küsimus3)
 
         screen.blit(textSurface, textRect)
+        display_time(time_seconds)
+        pygame.display.flip()
+
+        time_millis = clock.tick(30)
+        #if not game_over:
+        time_seconds += time_millis / 1000
+        
         pygame.display.update()
         clock.tick(60)
 
@@ -58,7 +73,7 @@ valikud=valik(len(järjend)-1)
 def küsimus1():
     indeks=0
     tekst=järjend[valikud[indeks]]
-
+    #display_time(time_seconds)
     while True:
         for event in pygame.event.get():
             print(event)
@@ -66,9 +81,10 @@ def küsimus1():
                 pygame.quit()
                 quit()
         screen.fill('white')
+        screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",50)
         display_text(screen,tekst,(20,20),font,black)
-#järjendist peab siis vastava elemendi ära kustutama
+    
         pygame.display.update()
         clock.tick(60)
 
@@ -83,9 +99,10 @@ def küsimus2():
                 pygame.quit()
                 quit()
         screen.fill('white')
+        screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",50)
         display_text(screen,tekst,(20,20),font,black)
-
+       
         pygame.display.update()
         clock.tick(60)
 def küsimus3():
@@ -99,9 +116,10 @@ def küsimus3():
                 pygame.quit()
                 quit()
         screen.fill('white')
+        screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",50)
         display_text(screen,tekst,(20,20),font,black)
-
+     
         pygame.display.update()
         clock.tick(60)
-#vaja lisada vastuse kast, kontroll
+
