@@ -83,6 +83,7 @@ active=False
 def küsimus1():
     indeks=0
     tekst=järjend[valikud[indeks]]
+    järjend.remove(tekst)
     #display_time(time_seconds)
     while True:
         for event in pygame.event.get():
@@ -101,10 +102,12 @@ def küsimus1():
                 if event.key==pygame.K_BACKSPACE:
                     user_text=user_text[:-1]
                 elif event.key==pygame.K_RETURN:
-                    if user_text==sõnastik[tekst]:
+                    if user_text.lower()==sõnastik[tekst].lower():
+                        user_text=''
                         gameloop()
                     else:
-                        print(sõnastik)
+                        pygame.quit()
+                        quit()
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
@@ -126,6 +129,7 @@ def küsimus1():
 def küsimus2():
     indeks=1
     tekst=järjend[valikud[indeks]]
+    järjend.remove(tekst)
 
     while True:
         for event in pygame.event.get():
@@ -133,16 +137,45 @@ def küsimus2():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        screen.fill('white')
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                global active
+                if input_rect.collidepoint(event.pos):
+                    active=True
+                else:
+                    active=False
+            if event.type==pygame.KEYDOWN and active:
+                global user_text
+                if event.key==pygame.K_BACKSPACE:
+                    user_text=user_text[:-1]
+                elif event.key==pygame.K_RETURN:
+                    if user_text.lower()==sõnastik[tekst].lower():
+                        user_text=''
+                        gameloop()
+                    else:
+                        pygame.quit()
+                        quit()
+                else:
+                    user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
-        display_text(screen,tekst,(20,20),font,black)
-       
+        font = pygame.font.SysFont("comicsansms",20)
+        display_text(screen,tekst,(20,20),font,white)
+        if active:
+            color=color_active
+        else:
+            color=color_passive
+
+        pygame.draw.rect(screen, color, input_rect)
+        text_surface=base_font.render(user_text,True,('black'))
+
+        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
+    
         pygame.display.update()
         clock.tick(60)
+
 def küsimus3():
     indeks=2
     tekst=järjend[valikud[indeks]]
+    järjend.remove(tekst)
 
     while True:
         for event in pygame.event.get():
@@ -150,10 +183,37 @@ def küsimus3():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        screen.fill('white')
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                global active
+                if input_rect.collidepoint(event.pos):
+                    active=True
+                else:
+                    active=False
+            if event.type==pygame.KEYDOWN and active:
+                global user_text
+                if event.key==pygame.K_BACKSPACE:
+                    user_text=user_text[:-1]
+                elif event.key==pygame.K_RETURN:
+                    if user_text.lower()==sõnastik[tekst].lower():
+                        user_text=''
+                        gameloop()
+                    else:
+                        pygame.quit()
+                        quit()
+                else:
+                    user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
-        display_text(screen,tekst,(20,20),font,black)
-     
+        font = pygame.font.SysFont("comicsansms",20)
+        display_text(screen,tekst,(20,20),font,white)
+        if active:
+            color=color_active
+        else:
+            color=color_passive
+
+        pygame.draw.rect(screen, color, input_rect)
+        text_surface=base_font.render(user_text,True,('black'))
+
+        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
+    
         pygame.display.update()
         clock.tick(60)
