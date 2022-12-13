@@ -7,7 +7,7 @@ from tekstipind import *
 from valikud import *
 from nupp import nupufunktsioon
 from info_failist import*
-from mängu_tsükkel import gameloop
+from mängu_tsükkel import timer
 from pygame import mixer
 pygame.font.init()
 
@@ -32,10 +32,9 @@ def intro():
         display_text(screen,"Are you smarter than a 5th grader?",(60,100),font,white)
     
        
-        nupufunktsioon("Start!",100,300,300,70,green,darkgreen,gameloop)
-        
+        nupufunktsioon("Start!",100,300,300,70,green,darkgreen,timer)
+       
         nupufunktsioon("End Game", 150,400,200,50,red,darkred,pygame.quit)
-    
 
         pygame.display.update()
         clock.tick(60)
