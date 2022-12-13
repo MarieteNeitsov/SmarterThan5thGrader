@@ -59,7 +59,7 @@ def gameloop():
         screen.fill(white)
         screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",30)
-        textSurface, textRect = text_objects("Vali oma tee", font)
+        textSurface, textRect = text_objects("Pick your question", font)
         textRect.center = (250,100)
         screen.blit(textSurface, textRect)
 
@@ -67,7 +67,7 @@ def gameloop():
         if i>9:
             pygame.quit()
             quit()
-        elif i%3==0 and i!=0:
+        elif i%3==0:
             nupufunktsioon("1",25,150,50,30,darkblue,lightblue,küsimus1)
             nupufunktsioon("2",225,180,50,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",425,210,50,30,darkblue,lightblue,küsimus3)
@@ -115,6 +115,7 @@ def küsimus1():
                         punktid+=1000
                         gameloop()
                     else:
+                        user_text=''
                         display_text(screen,"wrong!",(200,200),font,white)
                         pygame.display.update()
                         pygame.time.wait(1000)
@@ -137,93 +138,88 @@ def küsimus2():
     indeks=1
     tekst=järjend[valikud[indeks]]
     järjend.remove(tekst)
-
+   
     while True:
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            global user_text
-            global kord
-            global punktid
-            if event.key==pygame.K_BACKSPACE:
-                user_text=user_text[:-1]
-            elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
-                if user_text.lower()==sõnastik[tekst].lower():
-                    user_text=''
-                    display_text(screen,"correct!",(200,200),font,white)
-                    pygame.display.update()
-                    pygame.time.wait(1000)
-                    kord+=1
-                    punktid+=1000
-                    gameloop()
-                else:
-                    display_text(screen,"wrong!",(200,200),font,white)
-                    pygame.display.update()
-                    pygame.time.wait(1000)
-                    punktid-=100
-                    gameloop()
-            else:
-                user_text+=event.unicode
-        screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
-        if active:
-            color=color_active
-        else:
-            color=color_passive
-
-        pygame.draw.rect(screen, color, input_rect)
-        text_surface=base_font.render(user_text,True,('black'))
-
-        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
-    
-        pygame.display.update()
-        clock.tick(60)
-
-def küsimus3():
-    indeks=2
-    tekst=järjend[valikud[indeks]]
-    järjend.remove(tekst)
-
-    while True:
-        for event in pygame.event.get():
-            print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                global active
-                if input_rect.collidepoint(event.pos):
-                    active=True
-                else:
-                    active=False
-            if event.type==pygame.KEYDOWN and active:
+            if event.type==pygame.KEYDOWN:
                 global user_text
+                global kord
+                global punktid
                 if event.key==pygame.K_BACKSPACE:
                     user_text=user_text[:-1]
-                elif event.key==pygame.K_RETURN:
+                elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
                     if user_text.lower()==sõnastik[tekst].lower():
                         user_text=''
+                        display_text(screen,"correct!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(1000)
+                        kord+=1
+                        punktid+=1000
                         gameloop()
                     else:
-                        pygame.quit()
-                        quit()
+                        display_text(screen,"wrong!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(1000)
+                        punktid-=100
+                        gameloop()
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",20)
         display_text(screen,tekst,(20,20),font,white)
-        if active:
-            color=color_active
-        else:
-            color=color_passive
-
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
-        screen.blit(text_surface,(input_rect.x+5,input_rect.y+5))
+        screen.blit(text_surface,(input_rect.x+5,input_rect.y-5))
+    
+        pygame.display.update()
+        clock.tick(60)
+
+def küsimus3():
+     indeks=2
+     tekst=järjend[valikud[indeks]]
+     järjend.remove(tekst)
+   
+     while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type==pygame.KEYDOWN:
+                global user_text
+                global kord
+                global punktid
+                if event.key==pygame.K_BACKSPACE:
+                    user_text=user_text[:-1]
+                elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
+                    if user_text.lower()==sõnastik[tekst].lower():
+                        user_text=''
+                        display_text(screen,"correct!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(1000)
+                        kord+=1
+                        punktid+=1000
+                        gameloop()
+                    else:
+                        display_text(screen,"wrong!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(1000)
+                        punktid-=100
+                        gameloop()
+                else:
+                    user_text+=event.unicode
+        screen.blit(background,(0,0))
+        font = pygame.font.SysFont("comicsansms",20)
+        display_text(screen,tekst,(20,20),font,white)
+        pygame.draw.rect(screen, color, input_rect)
+        text_surface=base_font.render(user_text,True,('black'))
+
+        screen.blit(text_surface,(input_rect.x+5,input_rect.y-5))
     
         pygame.display.update()
         clock.tick(60)
