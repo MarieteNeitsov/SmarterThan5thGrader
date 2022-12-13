@@ -1,3 +1,4 @@
+from ast import Global
 import time
 import sys
 import pygame
@@ -38,13 +39,20 @@ def display_text(surface,text,pos,font,color):
         x=pos[0]
         y+=word_height
 
-def display_time(time_seconds):
-  # time string with tents of seconds
-  time_str =  str(int(time_seconds*10) / 10) 
-  font = pygame.font.SysFont("comicsansms",50)
-  label = font.render(f"Time : {time_str}", 1, red)
-  screen.blit(label, (20, 20))
-        
+
+def timer():
+    global start_time
+    start_time=pygame.time.get_ticks()
+    gameloop()
+   
+def convert(seconds):
+    seconds = seconds % (24 * 3600)
+    hour = seconds // 3600
+    seconds %= 3600
+    minutes = seconds // 60
+    seconds %= 60
+    return "%d:%02d:%02d" % (hour, minutes, seconds)
+
 def gameloop():
     global valikud
     global kord
@@ -67,7 +75,7 @@ def gameloop():
         if i>9:
             pygame.quit()
             quit()
-        elif i%3==0:
+        elif i%3==0 and i!=0:
             nupufunktsioon("1",25,150,50,30,darkblue,lightblue,küsimus1)
             nupufunktsioon("2",225,180,50,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",425,210,50,30,darkblue,lightblue,küsimus3)
@@ -81,10 +89,19 @@ def gameloop():
             nupufunktsioon("1",20,150,440,30,darkblue,lightblue,küsimus1)
             nupufunktsioon("2",40,200,440,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",20,250,440,30,darkblue,lightblue,küsimus3)
+       
+        if i>3:
+            screen.blit(background,(0,0))
+            current_time=pygame.time.get_ticks()
+            print(current_time)
+            seconds=round((current_time-start_time)/1000,1)
+            print("sekundid:",seconds)
+            result=convert(seconds)
+            display_text(screen,f"Time:{result}",(200,150),font,white)
+            display_text(screen,f"Your score:{punktid}",(200,200),font,white)
+            
 
-
-        
-
+           
         pygame.display.update()
         clock.tick(60)
 
@@ -120,6 +137,7 @@ def küsimus1():
                         pygame.display.update()
                         pygame.time.wait(1000)
                         punktid-=100
+                        kord+=1
                         gameloop()
                 else:
                     user_text+=event.unicode
@@ -145,29 +163,28 @@ def küsimus2():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if event.type==pygame.KEYDOWN:
-                global user_text
-                global kord
-                global punktid
-                if event.key==pygame.K_BACKSPACE:
-                    user_text=user_text[:-1]
-                elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
-                    if user_text.lower()==sõnastik[tekst].lower():
-                        user_text=''
-                        display_text(screen,"correct!",(200,200),font,white)
-                        pygame.display.update()
-                        pygame.time.wait(1000)
-                        kord+=1
-                        punktid+=1000
-                        gameloop()
-                    else:
-                        display_text(screen,"wrong!",(200,200),font,white)
-                        pygame.display.update()
-                        pygame.time.wait(1000)
-                        punktid-=100
-                        gameloop()
+            global user_text
+            global kord
+            global punktid
+            if event.key==pygame.K_BACKSPACE:
+                user_text=user_text[:-1]
+            elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
+                if user_text.lower()==sõnastik[tekst].lower():
+                    user_text=''
+                    display_text(screen,"correct!",(200,200),font,white)
+                    pygame.display.update()
+                    pygame.time.wait(1000)
+                    kord+=1
+                    punktid+=1000
+                    gameloop()
                 else:
-                    user_text+=event.unicode
+                    display_text(screen,"wrong!",(200,200),font,white)
+                    pygame.display.update()
+                    pygame.time.wait(1000)
+                    punktid-=100
+                    gameloop()
+            else:
+                user_text+=event.unicode
         screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",20)
         display_text(screen,tekst,(20,20),font,white)
@@ -206,11 +223,8 @@ def küsimus3():
                         punktid+=1000
                         gameloop()
                     else:
-                        display_text(screen,"wrong!",(200,200),font,white)
-                        pygame.display.update()
-                        pygame.time.wait(1000)
-                        punktid-=100
-                        gameloop()
+                        pygame.quit()
+                        quit()
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
