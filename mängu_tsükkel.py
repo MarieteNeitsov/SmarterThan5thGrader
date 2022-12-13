@@ -47,7 +47,7 @@ def display_time(time_seconds):
   screen.blit(label, (20, 20))
         
 def gameloop():
-    time_seconds = 0
+   
     while True:
         for event in pygame.event.get():
             print(event)
@@ -60,19 +60,16 @@ def gameloop():
         font = pygame.font.SysFont("comicsansms",30)
         textSurface, textRect = text_objects("Vali oma tee", font)
         textRect.center = (250,100)
-        
-        nupufunktsioon("1",20,100,460,30,darkblue,lightblue,küsimus1)
-        nupufunktsioon("2",20,150,460,30,darkblue,lightblue,küsimus2)
-        nupufunktsioon("3",20,200,460,30,darkblue,lightblue,küsimus3)
-
         screen.blit(textSurface, textRect)
-        display_time(time_seconds)
-        pygame.display.flip()
 
-        time_millis = clock.tick(30)
-        #if not game_over:
-        time_seconds += time_millis / 1000
+       
+        for i in range(5):
+            nupufunktsioon("1",20,100,460,30,darkblue,lightblue,küsimus1)
+            nupufunktsioon("2",20,150,460,30,darkblue,lightblue,küsimus2)
+            nupufunktsioon("3",20,200,460,30,darkblue,lightblue,küsimus3)
+
         
+
         pygame.display.update()
         clock.tick(60)
 
@@ -84,7 +81,7 @@ def küsimus1():
     indeks=0
     tekst=järjend[valikud[indeks]]
     järjend.remove(tekst)
-    #display_time(time_seconds)
+   
     while True:
         for event in pygame.event.get():
             print(event)
@@ -104,10 +101,15 @@ def küsimus1():
                 elif event.key==pygame.K_RETURN:
                     if user_text.lower()==sõnastik[tekst].lower():
                         user_text=''
-                        gameloop()
+                        display_text(screen,"correct!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 1
                     else:
-                        pygame.quit()
-                        quit()
+                        display_text(screen,"wrong!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 0
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))

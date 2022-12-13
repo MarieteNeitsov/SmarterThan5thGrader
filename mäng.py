@@ -8,6 +8,7 @@ from valikud import *
 from nupp import nupufunktsioon
 from info_failist import*
 from mängu_tsükkel import gameloop
+from pygame import mixer
 pygame.font.init()
 
 
@@ -32,6 +33,7 @@ def intro():
     
        
         nupufunktsioon("Start!",100,300,300,70,green,darkgreen,gameloop)
+        
         nupufunktsioon("End Game", 150,400,200,50,red,darkred,pygame.quit)
     
 
