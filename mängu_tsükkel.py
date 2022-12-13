@@ -63,7 +63,7 @@ def gameloop():
         screen.blit(textSurface, textRect)
 
        
-        for i in range(5):
+        for i in range(3):
             nupufunktsioon("1",20,100,460,30,darkblue,lightblue,küsimus1)
             nupufunktsioon("2",20,150,460,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",20,200,460,30,darkblue,lightblue,küsimus3)
@@ -152,10 +152,15 @@ def küsimus2():
                 elif event.key==pygame.K_RETURN:
                     if user_text.lower()==sõnastik[tekst].lower():
                         user_text=''
-                        gameloop()
+                        display_text(screen,"correct!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 1
                     else:
-                        pygame.quit()
-                        quit()
+                        display_text(screen,"wrong!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 0
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
@@ -198,10 +203,15 @@ def küsimus3():
                 elif event.key==pygame.K_RETURN:
                     if user_text.lower()==sõnastik[tekst].lower():
                         user_text=''
-                        gameloop()
+                        display_text(screen,"correct!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 1
                     else:
-                        pygame.quit()
-                        quit()
+                        display_text(screen,"wrong!",(200,200),font,white)
+                        pygame.display.update()
+                        pygame.time.wait(2000)
+                        return 0
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
