@@ -19,6 +19,8 @@ color='lightgray'
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
 background= pygame.image.load('background.jpg')
+font = pygame.font.SysFont("comicsansms",30)
+small_font = pygame.font.SysFont("comicsansms",20)
 
 def display_text(surface,text,pos,font,color):
     collection=[word.split(' ')for word in text.splitlines()]
@@ -40,37 +42,7 @@ def esimene_küsimus():
     global kord
     global punktid
     global start_time
-    global valikud
-    global järjend
-    global sõnastik
-    järjend,sõnastik=info()
     start_time=time.time()
-    punktid=0
-    kord=0
-
-    valikud=valik(len(järjend)-1)
-
-    while True:
-        for event in pygame.event.get():
-            print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        screen.fill(white)
-        screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
-        textSurface, textRect = text_objects("Pick your question", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
-
-        nupufunktsioon("1",60,200,100,40,gray,lightgray,küsimus1)
-        nupufunktsioon("2",200,250,100,40,gray,lightgray,küsimus2)
-        nupufunktsioon("3",340,200,100,40,gray,lightgray,küsimus3)
-
-        
-        pygame.display.update()
-        clock.tick(60)
     gameloop()
 
    
@@ -112,12 +84,11 @@ def lõpuekraan():
                 pygame.quit()
                 quit()
         screen.blit(background,(0,0))
-        display_text(screen,f"Time:{tulemus}",(150,50),font,white)
-        display_text(screen,f"Points for answers:{punktid}",(80,110),font,white)
-        display_text(screen,f"Time bonus:{aja_boonus}",(120,170),font,white)
-        display_text(screen,f"Total score:{kogu_punktid}",(115,230),font,white)
-        nupufunktsioon("Try again",150,350,200,30,gray,lightgray,esimene_küsimus)
-        nupufunktsioon("Quit",200,400,100,30,red,lightred,pygame.quit)
+        font = pygame.font.SysFont("comicsansms",30)
+        textSurface, textRect = text_objects(f"Time:{tulemus}", font)
+        textRect.center = (250,100)
+        screen.blit(textSurface, textRect)
+        #lisada nupp avaekraanile
 
         pygame.display.update()
         clock.tick(60)
@@ -137,7 +108,7 @@ def gameloop():
 
         screen.fill(white)
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
+        font = pygame.font.SysFont("comicsansms",30)
         textSurface, textRect = text_objects("Pick your question", font)
         textRect.center = (250,100)
         screen.blit(textSurface, textRect)
@@ -199,8 +170,7 @@ def küsimus1():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
@@ -244,8 +214,7 @@ def küsimus2():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
@@ -290,8 +259,7 @@ def küsimus3():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
