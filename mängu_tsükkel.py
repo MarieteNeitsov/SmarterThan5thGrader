@@ -18,8 +18,12 @@ input_rect=pygame.Rect(50,350,400,50)
 color='lightgray'
 punktid=0
 kord=0
+<<<<<<< HEAD
 start_time=0
 current_time=0
+=======
+lõpp=False
+>>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
 
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
@@ -43,8 +47,14 @@ def display_text(surface,text,pos,font,color):
 
 
 def timer():
+<<<<<<< HEAD
     start_time=pygame.time.get_ticks()
+=======
+    global start_time
+    start_time=time.time()
+>>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
     gameloop()
+
    
 def convert(seconds):
     seconds = seconds % (24 * 3600)
@@ -54,10 +64,36 @@ def convert(seconds):
     seconds %= 60
     return "%d:%02d:%02d" % (hour, minutes, seconds)
 
+def lõpuekraan():
+    current_time=time.time()
+    lõplik_aeg=current_time-start_time
+    tulemus=convert(lõplik_aeg)
+    #vaja tingimused anda, mis ajavahemiku kohta millised punktid saab
+    
+    while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        screen.blit(background,(0,0))
+        font = pygame.font.SysFont("comicsansms",30)
+        textSurface, textRect = text_objects(f"Time:{tulemus}", font)
+        textRect.center = (250,100)
+        screen.blit(textSurface, textRect)
+        #lisada nupp avaekraanile
+
+        pygame.display.update()
+        clock.tick(60)
+
 def gameloop():
     global valikud
     global kord
+    global lõpp
+    global lõplik_aeg
+
     valikud=valik(len(järjend)-1)
+
     while True:
         for event in pygame.event.get():
             print(event)
@@ -68,13 +104,15 @@ def gameloop():
         screen.fill(white)
         screen.blit(background,(0,0))
         font = pygame.font.SysFont("comicsansms",30)
-        textSurface, textRect = text_objects("Vali oma tee", font)
+        textSurface, textRect = text_objects("Pick your question", font)
         textRect.center = (250,100)
         screen.blit(textSurface, textRect)
-        
-       
-        i=kord 
-        if i%3==0 and i!=0:
+
+        i=kord
+        if i>9:
+            pygame.quit()
+            quit()
+        elif i%3==0 and i!=0:
             nupufunktsioon("1",25,150,50,30,darkblue,lightblue,küsimus1)
             nupufunktsioon("2",225,180,50,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",425,210,50,30,darkblue,lightblue,küsimus3)
@@ -89,6 +127,7 @@ def gameloop():
             nupufunktsioon("2",40,200,440,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",20,250,440,30,darkblue,lightblue,küsimus3)
        
+<<<<<<< HEAD
         if i>3:
             screen.blit(background,(0,0))
             current_time=pygame.time.get_ticks()
@@ -99,6 +138,11 @@ def gameloop():
             
 
            
+=======
+        if i>1:
+            lõpuekraan()
+        
+>>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
         pygame.display.update()
         clock.tick(60)
 
@@ -106,6 +150,9 @@ def küsimus1():
     indeks=0
     tekst=järjend[valikud[indeks]]
     järjend.remove(tekst)
+    global user_text
+    global kord
+    global punktid
    
     while True:
         for event in pygame.event.get():
@@ -113,10 +160,7 @@ def küsimus1():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if event.type==pygame.KEYDOWN:
-                global user_text
-                global kord
-                global punktid
+            elif event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_BACKSPACE:
                     user_text=user_text[:-1]
                 elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
@@ -153,17 +197,16 @@ def küsimus2():
     indeks=1
     tekst=järjend[valikud[indeks]]
     järjend.remove(tekst)
-
+    global user_text
+    global kord
+    global punktid
     while True:
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if event.type==pygame.KEYDOWN:
-                global user_text
-                global kord
-                global punktid
+            elif event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_BACKSPACE:
                     user_text=user_text[:-1]
                 elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
@@ -200,17 +243,17 @@ def küsimus3():
     indeks=2
     tekst=järjend[valikud[indeks]]
     järjend.remove(tekst)
-
+    global user_text
+    global kord
+    global punktid
+   
     while True:
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if event.type==pygame.KEYDOWN:
-                global user_text
-                global kord
-                global punktid
+            elif event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_BACKSPACE:
                     user_text=user_text[:-1]
                 elif event.key==pygame.K_RETURN or event.key==pygame.K_KP_ENTER:
