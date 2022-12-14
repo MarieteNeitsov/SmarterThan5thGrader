@@ -6,7 +6,7 @@ pygame.font.init()
 
 
 def text_objects(text, font):
-    textSurface = font.render(text, True, black)
+    textSurface = font.render(text, True, white)
     textRect = textSurface.get_rect()
     return textSurface, textRect
 
