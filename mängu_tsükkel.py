@@ -42,8 +42,37 @@ def esimene_küsimus():
     global kord
     global punktid
     global start_time
+    global valikud
+    global järjend
+    global sõnastik
+    järjend,sõnastik=info()
     start_time=time.time()
-    gameloop()
+    punktid=0
+    kord=0
+
+    valikud=valik(len(järjend)-1)
+
+    while True:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        screen.fill(white)
+        screen.blit(background,(0,0))
+        font = pygame.font.SysFont("comicsansms",50)
+        textSurface, textRect = text_objects("Pick your question", font)
+        textRect.center = (250,100)
+        screen.blit(textSurface, textRect)
+
+        nupufunktsioon("1",60,200,100,40,gray,lightgray,küsimus1)
+        nupufunktsioon("2",200,250,100,40,gray,lightgray,küsimus2)
+        nupufunktsioon("3",340,200,100,40,gray,lightgray,küsimus3)
+
+        
+        pygame.display.update()
+        clock.tick(60)
 
    
 def convert(seconds):
@@ -84,11 +113,12 @@ def lõpuekraan():
                 pygame.quit()
                 quit()
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",30)
-        textSurface, textRect = text_objects(f"Time:{tulemus}", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
-        #lisada nupp avaekraanile
+        display_text(screen,f"Time:{tulemus}",(150,50),font,white)
+        display_text(screen,f"Points for answers:{punktid}",(80,110),font,white)
+        display_text(screen,f"Time bonus:{aja_boonus}",(120,170),font,white)
+        display_text(screen,f"Total score:{kogu_punktid}",(115,230),font,white)
+        nupufunktsioon("Try again",150,350,200,30,gray,lightgray,esimene_küsimus)
+        nupufunktsioon("Quit",200,400,100,30,red,lightred,pygame.quit)
 
         pygame.display.update()
         clock.tick(60)
@@ -108,7 +138,7 @@ def gameloop():
 
         screen.fill(white)
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",30)
+        font = pygame.font.SysFont("comicsansms",50)
         textSurface, textRect = text_objects("Pick your question", font)
         textRect.center = (250,100)
         screen.blit(textSurface, textRect)
