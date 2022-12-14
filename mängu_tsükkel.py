@@ -18,6 +18,8 @@ input_rect=pygame.Rect(50,350,400,50)
 color='lightgray'
 punktid=0
 kord=0
+start_time=0
+current_time=0
 
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
@@ -41,7 +43,6 @@ def display_text(surface,text,pos,font,color):
 
 
 def timer():
-    global start_time
     start_time=pygame.time.get_ticks()
     gameloop()
    
@@ -91,9 +92,7 @@ def gameloop():
         if i>3:
             screen.blit(background,(0,0))
             current_time=pygame.time.get_ticks()
-            print(current_time)
             seconds=round((current_time-start_time)/1000,1)
-            print("sekundid:",seconds)
             result=convert(seconds)
             display_text(screen,f"Time:{result}",(200,150),font,white)
             display_text(screen,f"Your score:{punktid}",(200,200),font,white)
