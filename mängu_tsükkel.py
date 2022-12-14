@@ -18,16 +18,13 @@ input_rect=pygame.Rect(50,350,400,50)
 color='lightgray'
 punktid=0
 kord=0
-<<<<<<< HEAD
-start_time=0
-current_time=0
-=======
 lõpp=False
->>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
 
 screen = pygame.display.set_mode([500, 500])
 clock = pygame.time.Clock()
 background= pygame.image.load('background.jpg')
+font = pygame.font.SysFont("comicsansms",30)
+small_font = pygame.font.SysFont("comicsansms",20)
 
 def display_text(surface,text,pos,font,color):
     collection=[word.split(' ')for word in text.splitlines()]
@@ -47,12 +44,8 @@ def display_text(surface,text,pos,font,color):
 
 
 def timer():
-<<<<<<< HEAD
-    start_time=pygame.time.get_ticks()
-=======
     global start_time
-    start_time=time.time()
->>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
+    start_time =time.time()
     gameloop()
 
    
@@ -77,11 +70,9 @@ def lõpuekraan():
                 pygame.quit()
                 quit()
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",30)
-        textSurface, textRect = text_objects(f"Time:{tulemus}", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
-        #lisada nupp avaekraanile
+        display_text(screen,f"Time:{tulemus}",(140,100),font,white)
+        #nupufunktsioon("Try again",100,300,200,50,green,darkgreen,timer)
+        nupufunktsioon("End Game", 150,400,200,50,red,darkred,pygame.quit)
 
         pygame.display.update()
         clock.tick(60)
@@ -103,10 +94,7 @@ def gameloop():
 
         screen.fill(white)
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",30)
-        textSurface, textRect = text_objects("Pick your question", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
+        display_text(screen,f"Pick your question",(120,100),font,white)
 
         i=kord
         if i>9:
@@ -127,22 +115,9 @@ def gameloop():
             nupufunktsioon("2",40,200,440,30,darkblue,lightblue,küsimus2)
             nupufunktsioon("3",20,250,440,30,darkblue,lightblue,küsimus3)
        
-<<<<<<< HEAD
-        if i>3:
-            screen.blit(background,(0,0))
-            current_time=pygame.time.get_ticks()
-            seconds=round((current_time-start_time)/1000,1)
-            result=convert(seconds)
-            display_text(screen,f"Time:{result}",(200,150),font,white)
-            display_text(screen,f"Your score:{punktid}",(200,200),font,white)
-            
-
-           
-=======
         if i>1:
             lõpuekraan()
         
->>>>>>> 9f9c37ea1c54dc7c6c594b651dd3bd64c5d5002e
         pygame.display.update()
         clock.tick(60)
 
@@ -183,8 +158,7 @@ def küsimus1():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
@@ -229,8 +203,7 @@ def küsimus2():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
@@ -276,8 +249,7 @@ def küsimus3():
                 else:
                     user_text+=event.unicode
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",20)
-        display_text(screen,tekst,(20,20),font,white)
+        display_text(screen,tekst,(20,20),small_font,white)
         pygame.draw.rect(screen, color, input_rect)
         text_surface=base_font.render(user_text,True,('black'))
 
