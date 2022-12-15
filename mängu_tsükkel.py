@@ -62,8 +62,12 @@ def lõpuekraan():
     font=pygame.font.SysFont('comicsansms',30)
     if lõplik_aeg<=60:
         aja_boonus=5000
-    else:
+    else :
         aja_boonus=round(5000-lõplik_aeg*10)
+        if aja_boonus<0:
+            aja_boonus=0
+        else:
+            aja_boonus=aja_boonus
     kogu_punktid=punktid+aja_boonus
     
     while True:
