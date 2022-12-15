@@ -1,6 +1,6 @@
 import pygame
 import sys
-from tekstipind import*
+from abifunktsioonid import*
  
 screen = pygame.display.set_mode([500, 500])
 

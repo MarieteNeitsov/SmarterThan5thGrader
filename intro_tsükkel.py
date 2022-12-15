@@ -3,10 +3,8 @@ import sys
 import pygame
 import os
 from värvid import *
-from tekstipind import *
-from valikud import *
+from abifunktsioonid import * 
 from nupp import nupufunktsioon
-from info_failist import*
 from mängu_tsükkel import esimene_küsimus
 from pygame import mixer
 pygame.font.init()

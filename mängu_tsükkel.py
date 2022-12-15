@@ -4,10 +4,8 @@ import sys
 import pygame
 import os
 from värvid import *
-from tekstipind import *
-from valikud import *
+from abifunktsioonid import * 
 from nupp import nupufunktsioon
-from info_failist import*
 import random
 pygame.font.init()
 
@@ -56,15 +54,6 @@ def esimene_küsimus():
         
         pygame.display.update()
         clock.tick(60)
-
-   
-def convert(seconds):
-    seconds = seconds % (24 * 3600)
-    hour = seconds // 3600
-    seconds %= 3600
-    minutes = seconds // 60
-    seconds %= 60
-    return "%d:%02d:%02d" % (hour, minutes, seconds)
 
 def lõpuekraan():
     current_time=time.time()
