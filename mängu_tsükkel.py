@@ -21,22 +21,8 @@ clock = pygame.time.Clock()
 background= pygame.image.load('background.jpg')
 font = pygame.font.SysFont("comicsansms",30)
 small_font = pygame.font.SysFont("comicsansms",20)
+big_font = pygame.font.SysFont("comicsansms",40)
 
-def display_text(surface,text,pos,font,color):
-    collection=[word.split(' ')for word in text.splitlines()]
-    space=font.size(' ')[0]
-    x,y=pos
-    for lines in collection:
-        for words in lines:
-            words_surface=font.render(words, True, color)
-            word_width,word_height=words_surface.get_size()
-            if x+word_width>=500:
-                x=pos[0]
-                y+=word_height
-            surface.blit(words_surface,(x,y))
-            x+=word_width+space
-        x=pos[0]
-        y+=word_height
 
 def esimene_küsimus():
     global kord
@@ -61,10 +47,7 @@ def esimene_küsimus():
 
         screen.fill(white)
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
-        textSurface, textRect = text_objects("Pick your question", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
+        display_text(screen,"Pick your question",(80,120),big_font,white)
 
         nupufunktsioon("1",60,200,100,40,gray,lightgray,küsimus1)
         nupufunktsioon("2",200,250,100,40,gray,lightgray,küsimus2)
@@ -126,10 +109,7 @@ def gameloop():
 
         screen.fill(white)
         screen.blit(background,(0,0))
-        font = pygame.font.SysFont("comicsansms",50)
-        textSurface, textRect = text_objects("Pick your question", font)
-        textRect.center = (250,100)
-        screen.blit(textSurface, textRect)
+        display_text(screen,"Pick your question",(80,120),big_font,white)
 
         i=kord
         if i>9:
