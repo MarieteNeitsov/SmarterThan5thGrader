@@ -89,21 +89,9 @@ def lõpuekraan():
     tulemus=convert(lõplik_aeg)
     font=pygame.font.SysFont('comicsansms',30)
     if lõplik_aeg<=60:
-        aja_boonus=1000
-    elif 60<lõplik_aeg<=70:
-        aja_boonus=900
-    elif 70<lõplik_aeg<=80:
-        aja_boonus=800
-    elif 80<lõplik_aeg<=90:
-        aja_boonus=700
-    elif 90<lõplik_aeg<=100:
-        aja_boonus=600
-    elif 100<lõplik_aeg<=110:
-        aja_boonus=500
-    elif 110<lõplik_aeg<=120:
-        aja_boonus=400
+        aja_boonus=5000
     else:
-        aja_boonus=0
+        aja_boonus=round(5000-lõplik_aeg*10)
     kogu_punktid=punktid+aja_boonus
     
     while True:
